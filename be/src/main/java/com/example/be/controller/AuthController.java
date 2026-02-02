@@ -40,7 +40,8 @@ public class AuthController {
         return ResponseEntity.ok(new AuthResponse(
             saved.getId(),
             saved.getUsername(),
-            "Registration successful"
+            "Registration successful",
+            saved.getRole()
         ));
     }
 
@@ -57,7 +58,8 @@ public class AuthController {
         return ResponseEntity.ok(new AuthResponse(
             user.getId(),
             user.getUsername(),
-            "Login successful"
+            "Login successful",
+            user.getRole()
         ));
     }
 

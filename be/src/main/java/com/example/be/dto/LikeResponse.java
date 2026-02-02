@@ -1,14 +1,13 @@
 package com.example.be.dto;
 
-import com.example.be.enums.Role;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class AuthResponse {
-    private Long userId;
-    private String username;
+public class LikeResponse {
+    private boolean success;
     private String message;
-    private Role role;
+    private int totalLikes;
+    private boolean isLiked;
 }

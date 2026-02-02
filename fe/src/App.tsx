@@ -1,39 +1,40 @@
 import { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route, Link, Navigate } from "react-router-dom";
+import authService from "./services/authService";
 import Auth from "./components/Auth";
-import GameList from "./components/GameList";
 import Leaderboard from "./components/Leaderboard";
 import BucketManager from "./components/BucketManager";
+import GameList from "./components/GameList";
+import GameListNetflix from "./components/GameListNetflix";
 
 function App() {
   const [username, setUsername] = useState<string | null>(null);
   const [userId, setUserId] = useState<number | null>(null);
+  const [role, setRole] = useState<string | null>(null);
 
   useEffect(() => {
     // Check if user is already logged in
-    const savedUsername = localStorage.getItem("username");
-    const savedUserId = localStorage.getItem("userId");
+    const { username: savedUsername, userId: savedUserId, role: savedRole } = authService.getStoredAuthData();
     if (savedUsername && savedUserId) {
       setUsername(savedUsername);
-      setUserId(parseInt(savedUserId));
+      setUserId(savedUserId);
+      setRole(savedRole);
     }
   }, []);
 
-  const handleAuthSuccess = (user: string, uid: number) => {
+  const handleAuthSuccess = (user: string, uid: number, userRole: string) => {
     setUsername(user);
     setUserId(uid);
+    setRole(userRole);
+    authService.storeAuthData(user, uid, userRole);
   };
 
   const handleLogout = () => {
     setUsername(null);
     setUserId(null);
-    localStorage.removeItem("username");
-    localStorage.removeItem("userId");
+    setRole(null);
+    authService.clearAuthData();
   };
-
-  if (!username) {
-    return <Auth onSuccess={handleAuthSuccess} />;
-  }
 
   return (
     <BrowserRouter>
@@ -68,15 +69,26 @@ function App() {
                 </div>
               </div>
               <div className="flex items-center space-x-4">
-                <span className="text-gray-700 font-medium">
-                  👤 {username}
-                </span>
-                <button
-                  onClick={handleLogout}
-                  className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg font-semibold"
-                >
-                  Logout
-                </button>
+                {username ? (
+                  <>
+                    <span className="text-gray-700 font-medium">
+                      👤 {username}
+                    </span>
+                    <button
+                      onClick={handleLogout}
+                      className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg font-semibold"
+                    >
+                      Logout
+                    </button>
+                  </>
+                ) : (
+                  <Link
+                    to="/login"
+                    className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg font-semibold"
+                  >
+                    Login / Register
+                  </Link>
+                )}
               </div>
             </div>
           </div>
@@ -84,9 +96,17 @@ function App() {
 
         {/* Routes */}
         <Routes>
-          <Route path="/" element={<GameList username={username} />} />
+          <Route path="/" element={<GameListNetflix username={username} role={role} />} />
           <Route path="/leaderboard" element={<Leaderboard />} />
           <Route path="/buckets" element={<BucketManager />} />
+          <Route 
+            path="/login" 
+            element={
+              username ? 
+                <Navigate to="/" /> : 
+                <Auth onSuccess={handleAuthSuccess} />
+            } 
+          />
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </div>

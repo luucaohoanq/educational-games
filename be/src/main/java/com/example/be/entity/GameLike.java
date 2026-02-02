@@ -7,7 +7,8 @@ import java.time.LocalDateTime;
 
 @Entity
 @Data
-public class PlayHistory {
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"game_id", "user_id"}))
+public class GameLike {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -16,18 +17,16 @@ public class PlayHistory {
     @JoinColumn(name = "game_id", nullable = false)
     @JsonIgnore
     private Game game;
-
+    
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     @JsonIgnore
     private User user;
     
-    private LocalDateTime playedAt;
-    private Integer score = 0; // Score for leaderboard
-    private Integer duration = 0; // Play duration in seconds
+    private LocalDateTime likedAt;
     
     @PrePersist
     protected void onCreate() {
-        playedAt = LocalDateTime.now();
+        likedAt = LocalDateTime.now();
     }
 }

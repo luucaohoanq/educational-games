@@ -1,10 +1,8 @@
 import { useState } from "react";
-import axios from "axios";
-
-const API_URL = "http://localhost:8080/api/auth";
+import authService from "../services/authService";
 
 interface AuthProps {
-  onSuccess: (username: string, userId: number) => void;
+  onSuccess: (username: string, userId: number, role: string) => void;
 }
 
 export default function Auth({ onSuccess }: AuthProps) {
@@ -19,15 +17,12 @@ export default function Auth({ onSuccess }: AuthProps) {
     setError("");
 
     try {
-      const endpoint = isLogin ? "/login" : "/register";
-      const payload = isLogin
-        ? { username, password }
-        : { username, password, email };
+      const response = isLogin
+        ? await authService.login({ username, password })
+        : await authService.register({ username, password, email });
 
-      const res = await axios.post(`${API_URL}${endpoint}`, payload);
-      onSuccess(res.data.username, res.data.userId);
-      localStorage.setItem("username", res.data.username);
-      localStorage.setItem("userId", res.data.userId.toString());
+      authService.storeAuthData(response.username, response.userId, response.role);
+      onSuccess(response.username, response.userId, response.role);
     } catch (err: any) {
       setError(err.response?.data || "Authentication failed");
     }
