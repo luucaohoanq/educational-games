@@ -28,6 +28,7 @@ export default function StudentProfileView({
 
 	const fetchProfile = async () => {
 		try {
+			console.log("Fetching profile for userId:", userId);
 			const data = await studentService.getStudentProfile(userId);
 			setProfile(data);
 		} catch (error) {

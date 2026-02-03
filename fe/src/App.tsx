@@ -1,12 +1,8 @@
 import { useState, useEffect } from "react";
-import { BrowserRouter, Routes, Route, Link, Navigate } from "react-router-dom";
+import { BrowserRouter, Link } from "react-router-dom";
 import authService from "./services/authService";
-import Auth from "./components/Auth";
-import Leaderboard from "./components/Leaderboard";
-import BucketManager from "./components/BucketManager";
-import GameList from "./components/GameList";
-import GameListNetflix from "./components/GameListNetflix";
 import Switch from "./components/Switch";
+import AppRoutes from "./routes";
 
 function App() {
 	const [username, setUsername] = useState<string | null>(null);
@@ -87,6 +83,13 @@ function App() {
 									>
 										Buckets
 									</Link>
+									{/* Temporary test link */}
+									<Link
+										to="/student/1"
+										className="text-base-content/70 hover:text-primary font-semibold"
+									>
+										Test Profile
+									</Link>
 								</div>
 							</div>
 							<div className="flex items-center space-x-4">
@@ -112,25 +115,11 @@ function App() {
 				</nav>
 
 				{/* Routes */}
-				<Routes>
-					<Route
-						path="/"
-						element={<GameListNetflix username={username} role={role} />}
-					/>
-					<Route path="/leaderboard" element={<Leaderboard />} />
-					<Route path="/buckets" element={<BucketManager />} />
-					<Route
-						path="/login"
-						element={
-							username ? (
-								<Navigate to="/" />
-							) : (
-								<Auth onSuccess={handleAuthSuccess} />
-							)
-						}
-					/>
-					<Route path="*" element={<Navigate to="/" />} />
-				</Routes>
+				<AppRoutes
+					username={username}
+					role={role}
+					onAuthSuccess={handleAuthSuccess}
+				/>
 			</div>
 		</BrowserRouter>
 	);

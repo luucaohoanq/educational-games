@@ -28,12 +28,14 @@ public class DataInitializer implements CommandLineRunner {
             quiz.setName("QUIZ");
             quiz.setDescription("Quiz and trivia games to test your knowledge");
             quiz.setIcon("🧩");
+            quiz.setIsActive(true);
             gameCategoryRepository.save(quiz);
             
             GameCategory typing = new GameCategory();
             typing.setName("TYPING");
             typing.setDescription("Typing speed and accuracy games");
             typing.setIcon("⌨️");
+            typing.setIsActive(true);
             gameCategoryRepository.save(typing);
             
             System.out.println("✓ Initialized game categories: QUIZ, TYPING");

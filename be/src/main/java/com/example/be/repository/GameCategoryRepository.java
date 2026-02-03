@@ -8,7 +8,11 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.Query;
 
 public interface GameCategoryRepository extends JpaRepository<GameCategory, Long> {
-    Optional<GameCategory> findByName(String name);
+    List<GameCategory> findByIsActiveTrue();
+
+    Optional<GameCategory> findByIdAndIsActiveTrue(Long id);
+
+    Optional<GameCategory> findByNameAndIsActiveTrue(String name);
 
     @Query("""
         select distinct c
@@ -16,4 +20,6 @@ public interface GameCategoryRepository extends JpaRepository<GameCategory, Long
         left join fetch c.games
     """)
     List<GameCategory> findAllWithGames();
+
+    boolean existsByName(String name);
 }

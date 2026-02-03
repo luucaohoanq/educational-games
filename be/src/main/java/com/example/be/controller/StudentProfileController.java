@@ -4,6 +4,7 @@ import com.example.be.dto.PlayHistoryResponse;
 import com.example.be.dto.StudentProfileResponse;
 import com.example.be.entity.PlayHistory;
 import com.example.be.entity.User;
+import com.example.be.enums.Role;
 import com.example.be.repository.PlayHistoryRepository;
 import com.example.be.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -85,9 +86,9 @@ public class StudentProfileController {
         @RequestParam(defaultValue = "20") int size
     ) {
         Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "totalScore"));
-        Page<User> usersPage = userRepository.findAll(pageable);
+        Page<User> usersPage = userRepository.findAllByRole(Role.STUDENT ,pageable);
 
-        Page<StudentProfileResponse> responsePage = usersPage.map(user -> 
+        Page<StudentProfileResponse> responsePage = usersPage.map(user ->
             new StudentProfileResponse(
                 user.getId(),
                 user.getUsername(),

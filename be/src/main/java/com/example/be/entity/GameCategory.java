@@ -19,6 +19,10 @@ public class GameCategory {
     
     private String icon; // Emoji or icon class
 
+    @Column(nullable = false)
+    @JsonIgnore
+    private Boolean isActive = true;
+
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore
     private List<Game> games;

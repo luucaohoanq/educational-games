@@ -69,6 +69,7 @@ public class AuthController {
             .sorted((a, b) -> b.getTotalScore().compareTo(a.getTotalScore()))
             .limit(10)
             .map(u -> new LeaderboardEntry(
+                u.getId(),
                 u.getUsername(),
                 u.getTotalScore(),
                 u.getGamesPlayed()
