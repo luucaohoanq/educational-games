@@ -33,10 +33,10 @@ export default function Auth({ onSuccess }: AuthProps) {
 	};
 
 	return (
-		<div className="min-h-screen bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center p-4">
+		<div className="min-h-screen bg-linear-to-br from-blue-500 to-purple-600 flex items-center justify-center p-4">
 			<div className="bg-white rounded-lg shadow-2xl p-8 max-w-md w-full">
 				<h1 className="text-3xl font-bold text-center mb-6 text-gray-800">
-					🎮 Game Store
+					Game Store
 				</h1>
 
 				<div className="flex gap-2 mb-6">

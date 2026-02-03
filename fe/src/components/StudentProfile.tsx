@@ -70,7 +70,7 @@ export default function StudentProfileView({
 				{/* Profile Header */}
 				<div className="bg-gradient-to-r from-purple-900 to-blue-900 rounded-lg p-8 mb-8 shadow-2xl">
 					<div className="flex items-start gap-6">
-						<div className="w-24 h-24 rounded-full bg-gradient-to-br from-purple-500 to-blue-500 flex items-center justify-center text-4xl font-bold">
+						<div className="w-24 h-24 rounded-full bg-linear-to-br from-purple-500 to-blue-500 flex items-center justify-center text-4xl font-bold">
 							{profile.username.charAt(0).toUpperCase()}
 						</div>
 						<div className="flex-1">
@@ -116,7 +116,7 @@ export default function StudentProfileView({
 										key={item.id}
 										className="bg-gray-800/50 rounded-lg overflow-hidden hover:bg-gray-800 transition-colors"
 									>
-										<div className="aspect-video bg-gradient-to-br from-purple-600 to-blue-500 flex items-center justify-center">
+										<div className="aspect-video bg-linear-to-br from-purple-600 to-blue-500 flex items-center justify-center">
 											{item.gameThumbnail ? (
 												<img
 													src={item.gameThumbnail}

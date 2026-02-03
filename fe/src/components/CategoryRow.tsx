@@ -4,6 +4,7 @@ import type { Game } from "../services/gameService";
 
 interface CategoryRowProps {
 	categoryName: string;
+	categoryDescription: string;
 	categoryIcon: string;
 	games: Game[];
 	onGameClick: (game: Game) => void;
@@ -11,6 +12,7 @@ interface CategoryRowProps {
 
 export default function CategoryRow({
 	categoryName,
+	categoryDescription,
 	categoryIcon,
 	games,
 	onGameClick,
@@ -32,10 +34,13 @@ export default function CategoryRow({
 
 	return (
 		<div className="mb-8">
-			<h2 className="text-xl font-bold text-white mb-4 px-8 flex items-center gap-2">
+			<h2 className="text-xl font-bold text-white px-8 flex items-center gap-2">
 				<span>{categoryIcon}</span>
 				<span>{categoryName}</span>
 			</h2>
+			<span className="text-gray-300 text-sm px-8 mb-4">
+				{categoryDescription}
+			</span>
 
 			{games.length === 0 ? (
 				<div className="px-8">
@@ -49,6 +54,7 @@ export default function CategoryRow({
 				<div className="relative group/row">
 					{/* Left scroll button */}
 					<button
+						type="button"
 						onClick={() => scroll("left")}
 						className="absolute left-0 top-0 bottom-0 z-10 w-12 bg-gradient-to-r from-black/80 to-transparent opacity-0 group-hover/row:opacity-100 transition-opacity flex items-center justify-center hover:from-black/90"
 						aria-label="Scroll left"
@@ -71,7 +77,7 @@ export default function CategoryRow({
 								onClick={() => onGameClick(game)}
 								className="flex-none w-64 cursor-pointer transform transition-transform duration-300 hover:scale-105"
 							>
-								<div className="relative aspect-video rounded-md overflow-hidden bg-gradient-to-br from-purple-600 to-blue-500 shadow-lg">
+								<div className="relative aspect-video rounded-md overflow-hidden bg-linear-to-br from-purple-600 to-blue-500 shadow-lg">
 									{game.thumbnailUrl ? (
 										<img
 											src={game.thumbnailUrl}
@@ -83,7 +89,7 @@ export default function CategoryRow({
 											🎮
 										</div>
 									)}
-									<div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 transition-opacity flex flex-col justify-end p-4">
+									<div className="absolute inset-0 bg-linear-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 transition-opacity flex flex-col justify-end p-4">
 										<h3 className="text-white font-bold text-sm truncate">
 											{game.title}
 										</h3>

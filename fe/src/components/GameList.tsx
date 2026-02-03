@@ -648,7 +648,7 @@ export default function GameList({ username, role }: GameListProps) {
 												onClick={() => handleShowDetail(game)}
 												className="flex flex-col gap-2 p-2 hover:bg-[#f7f9fc] rounded-md cursor-pointer transition-colors group"
 											>
-												<div className="w-full aspect-square bg-gradient-to-br from-[#4c97ff] to-[#855cd6] rounded-md flex items-center justify-center text-3xl">
+												<div className="w-full aspect-square bg-linear-to-br from-[#4c97ff] to-[#855cd6] rounded-md flex items-center justify-center text-3xl">
 													🎮
 												</div>
 
@@ -893,7 +893,7 @@ export default function GameList({ username, role }: GameListProps) {
 								className="bg-white rounded-lg border border-[#d9e3f1] shadow-sm overflow-hidden hover:shadow-md transition-all group"
 							>
 								<div
-									className="h-44 bg-gradient-to-br from-[#4c97ff] to-[#855cd6] flex items-center justify-center cursor-pointer relative overflow-hidden"
+									className="h-44 bg-linear-to-br from-[#4c97ff] to-[#855cd6] flex items-center justify-center cursor-pointer relative overflow-hidden"
 									onClick={() => handleShowDetail(game)}
 								>
 									{game.thumbnailFullUrl ? (

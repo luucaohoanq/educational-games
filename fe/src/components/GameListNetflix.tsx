@@ -333,7 +333,7 @@ export default function GameListNetflix({
 					<div className="grid lg:grid-cols-3 gap-8">
 						{/* Left Column - Game Player */}
 						<div className="lg:col-span-2">
-							<div className="bg-gradient-to-br from-purple-900 to-blue-900 rounded-lg overflow-hidden shadow-2xl">
+							<div className="bg-linear-to-br from-purple-900 to-blue-900 rounded-lg overflow-hidden shadow-2xl">
 								<div className="aspect-video">
 									<iframe
 										src={detailGame.playUrl}
@@ -423,7 +423,7 @@ export default function GameListNetflix({
 											className="bg-gray-900 rounded-lg p-4"
 										>
 											<div className="flex items-start gap-3">
-												<div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500 to-blue-500 flex items-center justify-center font-bold">
+												<div className="w-10 h-10 rounded-full bg-linear-to-br from-purple-500 to-blue-500 flex items-center justify-center font-bold">
 													{comment.username.charAt(0).toUpperCase()}
 												</div>
 												<div className="flex-1">
@@ -483,7 +483,7 @@ export default function GameListNetflix({
 															className="mt-3 ml-8 bg-gray-800 rounded-lg p-3"
 														>
 															<div className="flex items-start gap-2">
-																<div className="w-8 h-8 rounded-full bg-gradient-to-br from-green-500 to-teal-500 flex items-center justify-center font-bold text-xs">
+																<div className="w-8 h-8 rounded-full bg-linear-to-br from-green-500 to-teal-500 flex items-center justify-center font-bold text-xs">
 																	{reply.username.charAt(0).toUpperCase()}
 																</div>
 																<div className="flex-1">
@@ -775,6 +775,7 @@ export default function GameListNetflix({
 							<CategoryRow
 								key={category.id}
 								categoryName={category.name}
+								categoryDescription={category.description}
 								categoryIcon={category.icon}
 								games={category.games || []}
 								onGameClick={handleShowDetail}
