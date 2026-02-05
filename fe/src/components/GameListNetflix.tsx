@@ -283,6 +283,14 @@ export default function GameListNetflix({
 
 	// --- VIEW: Playing Game Screen ---
 	if (selectedGame) {
+		// Debug logging
+		console.log('Playing game with username:', username);
+		console.log('Game ID:', selectedGame.id);
+		
+		// Build the game URL with parameters
+		const gameUrl = `${selectedGame.playUrl}?gameId=${selectedGame.id}&userId=${encodeURIComponent(username || '')}`;
+		console.log('Game URL:', gameUrl);
+		
 		return (
 			<div className="fixed inset-0 z-50 bg-black flex flex-col">
 				<div className="bg-gray-900 text-white p-4 flex justify-between items-center shadow-lg">
@@ -294,6 +302,11 @@ export default function GameListNetflix({
 							← Back
 						</button>
 						<h2 className="font-bold text-lg">{selectedGame.title}</h2>
+						{!username && (
+							<span className="text-yellow-500 text-sm">
+								⚠️ Not logged in - game progress won't be tracked
+							</span>
+						)}
 					</div>
 					<button
 						onClick={toggleFullscreen}
@@ -305,7 +318,7 @@ export default function GameListNetflix({
 				<div className="flex-1 relative">
 					<iframe
 						ref={gameContainerRef as any}
-						src={selectedGame.playUrl}
+						src={gameUrl}
 						className="w-full h-full border-none"
 						title="Game Play"
 					/>
